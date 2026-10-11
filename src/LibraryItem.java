@@ -1,4 +1,4 @@
-public abstract class LibraryItem {
+public abstract class LibraryItem implements Borrowable {
     private int ID;
     private String title;
     private boolean available;
@@ -14,6 +14,15 @@ public abstract class LibraryItem {
         if (ID >= 0){
             this.ID = ID;
         }
+    }
+
+    public void borrow(LibraryItem item, Member member){
+        item.setAvailability(false);
+        member.AddToBorrowed(item);
+    }
+    public void returnItem(LibraryItem item, Member member){
+        item.setAvailability(true);
+        member.RemoveFromBorrowed(item);
     }
 
     public void setTitle(String title){

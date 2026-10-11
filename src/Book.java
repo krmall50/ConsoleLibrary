@@ -19,7 +19,6 @@ public class Book extends LibraryItem {
         System.err.println();
     }
 
-
     public void setAuthor(String author){
         this.author = author;
     }
