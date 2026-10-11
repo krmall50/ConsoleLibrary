@@ -22,8 +22,8 @@ public class Main {
         AstanaLib.addMagazine(m1);
 
         AstanaLib.borrowItem(member1, b);
-        AstanaLib.borrowItem(member, b);
-        AstanaLib.getAllBooks();
+        AstanaLib.borrowItem(member, b1);
+        AstanaLib.getBorrowedItems();
 
         // AstanaLib.getAllBooks();
         // AstanaLib.getAllMagazines();
