@@ -10,6 +10,12 @@ public class Member {
         this.name = name;
         this.borrowedItems = new ArrayList<>();
     }
+    public boolean hasBorrowed(LibraryItem item){
+        if(borrowedItems.contains(item)){
+            return true;
+        }
+        return false;
+    }
     public void AddToBorrowed(LibraryItem item){
         borrowedItems.add(item);
     }

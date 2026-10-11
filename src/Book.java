@@ -16,7 +16,6 @@ public class Book extends LibraryItem {
         System.out.println("Available: " + getAvailability());
         System.out.println("Author: " + getAuthor());
         System.out.println("Genre: " + getGenre());
-        System.err.println();
     }
 
     public void setAuthor(String author){

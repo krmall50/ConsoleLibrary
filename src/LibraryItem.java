@@ -17,12 +17,27 @@ public abstract class LibraryItem implements Borrowable {
     }
 
     public void borrow(LibraryItem item, Member member){
-        item.setAvailability(false);
-        member.AddToBorrowed(item);
+        if (item.getAvailability()){
+            item.setAvailability(false);
+            member.AddToBorrowed(item);
+            System.out.println(member.getName() + " borrowed item " + item.getTitle());
+            System.out.println("-----------------------------------------------------");
+        } else {
+            System.out.println(member.getName() + " item " + item.getTitle() + " is not available");
+            System.out.println("-----------------------------------------------------");
+        }
+        
     }
     public void returnItem(LibraryItem item, Member member){
-        item.setAvailability(true);
-        member.RemoveFromBorrowed(item);
+        if (!item.getAvailability() && member.hasBorrowed(item)){
+            item.setAvailability(true);
+            member.RemoveFromBorrowed(item);
+            System.out.println(member.getName() + " returned item " + item.getTitle());
+            System.out.println("-----------------------------------------------------");
+        } else {
+            System.out.println(member.getName() + " you did not borrow " + item.getTitle());
+            System.out.println("-----------------------------------------------------");
+        }        
     }
 
     public void setTitle(String title){

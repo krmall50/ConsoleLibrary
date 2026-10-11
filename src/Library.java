@@ -5,14 +5,22 @@ public class Library {
     private ArrayList<Magazine> magazines;
     private ArrayList<Member> members;
 
-    public Library(ArrayList<Book> books, ArrayList<Magazine> magazines, ArrayList<Member> members){
-        this.books = books;
-        this.magazines = magazines;
-        this.members = members;
+    public Library(){
+        this.books = new ArrayList<>();
+        this.magazines = new ArrayList<>();
+        this.members = new ArrayList<>();
     }
 
     public void registerMember(Member member){
         members.add(member);
+    }
+
+    public void borrowItem(Member member, LibraryItem item){
+        item.borrow(item, member);
+    }
+
+    public void returnItem(Member member, LibraryItem item){
+        item.returnItem(item, member);
     }
 
     public void addBook(Book book){
@@ -23,7 +31,9 @@ public class Library {
         System.out.println("All books: ");
         for(Book book: books){
             book.getDescription();
+            System.out.println("--------------");
         }
+        System.out.println("--------------------------------------------");
     }
 
     public void addMagazine(Magazine magazine){
@@ -34,7 +44,9 @@ public class Library {
         System.out.println("All magazines: ");
         for(Magazine magazine: magazines){
             magazine.getDescription();
+            System.out.println("--------------");
         }
+        System.out.println("--------------------------------------------");
     }
 
 }
