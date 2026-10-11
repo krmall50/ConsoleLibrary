@@ -12,4 +12,13 @@ public class Magazine extends LibraryItem {
     public int getIssueNum(){
         return issueNum;
     }
+
+    @Override 
+    public void getDescription(){
+        System.out.println("ID: " + getID());
+        System.out.println("Title: " + getTitle());
+        System.out.println("Available: " + getAvailability());
+        System.out.println("Issue Number: " + getIssueNum());
+        System.err.println();
+    }
 }

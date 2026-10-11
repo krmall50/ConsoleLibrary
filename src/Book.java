@@ -9,6 +9,7 @@ public class Book extends LibraryItem {
         this.genre = genre;
     }
 
+    @Override 
     public void getDescription(){
         System.out.println("ID: " + getID());
         System.out.println("Title: " + getTitle());

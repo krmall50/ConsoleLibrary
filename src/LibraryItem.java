@@ -8,6 +8,7 @@ public abstract class LibraryItem {
         this.title = title;
         this.available = available;
     }
+    public abstract void getDescription();
 
     public void setID(int ID){
         if (ID >= 0){
