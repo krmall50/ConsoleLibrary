@@ -17,6 +17,24 @@ public class Library {
         this.borrowDates = new HashMap<>();
     }
 
+    public class LibraryConfig{
+        private int loanPeriod;
+
+        public LibraryConfig(int loanPeriod){
+            this.loanPeriod = loanPeriod;
+        }
+
+        public void setLoanPeroid(int loanPeriod){
+            if (loanPeriod > 0){
+                this.loanPeriod = loanPeriod;
+            }   
+        }
+        public int getLoanPeriod(){
+            return loanPeriod;
+        }
+
+    }
+
     public void registerMember(Member member){
         members.add(member);
     }
@@ -29,7 +47,7 @@ public class Library {
             System.out.println("No borrowed items.");
             return;
         }
-        
+
         System.out.println("All borrowed Items:");
         for(LibraryItem item: borrowedItems.keySet()){
             item.getDescription();
@@ -42,10 +60,12 @@ public class Library {
             System.out.println(member.getName() + " is not registered.");
             return;
         }
+
+        Library.LibraryConfig config = this.new LibraryConfig(14);
         LocalDate borrowDate = LocalDate.now();
-        LocalDate dueDate = borrowDate.plusDays(14);        
+        LocalDate dueDate = borrowDate.plusDays(config.getLoanPeriod());        
         
-        item.borrow(item, member, borrowDate);
+        item.borrow(item, member, borrowDate, dueDate);
         
         borrowedItems.put(item, member);
         borrowDates.put(item, dueDate);

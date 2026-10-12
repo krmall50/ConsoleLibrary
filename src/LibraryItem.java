@@ -18,13 +18,13 @@ public abstract class LibraryItem implements Borrowable {
         }
     }
 
-    public void borrow(LibraryItem item, Member member, LocalDate borrowDate){
+    public void borrow(LibraryItem item, Member member, LocalDate borrowDate, LocalDate dueDate){
         if (item.getAvailability()){
             item.setAvailability(false);
             member.AddToBorrowed(item);
 
             Member.LoanDetails loans = member.new LoanDetails();
-            loans.addLoan(item, borrowDate);
+            loans.addLoan(item, dueDate);
 
             System.out.println(member.getName() + " borrowed item " + item.getTitle() + " on " + borrowDate + " till: " + borrowDate.plusDays(14));
             System.out.println("-----------------------------------------------------");
