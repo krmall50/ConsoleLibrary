@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public abstract class LibraryItem implements Borrowable {
     private int ID;
     private String title;
@@ -16,11 +18,15 @@ public abstract class LibraryItem implements Borrowable {
         }
     }
 
-    public void borrow(LibraryItem item, Member member){
+    public void borrow(LibraryItem item, Member member, LocalDate borrowDate){
         if (item.getAvailability()){
             item.setAvailability(false);
             member.AddToBorrowed(item);
-            System.out.println(member.getName() + " borrowed item " + item.getTitle());
+
+            Member.LoanDetails loans = member.new LoanDetails();
+            loans.addLoan(item, borrowDate);
+
+            System.out.println(member.getName() + " borrowed item " + item.getTitle() + " on " + borrowDate + " till: " + borrowDate.plusDays(14));
             System.out.println("-----------------------------------------------------");
         } else {
             System.out.println(member.getName() + " item " + item.getTitle() + " is not available");
@@ -28,12 +34,24 @@ public abstract class LibraryItem implements Borrowable {
         }
         
     }
-    public void returnItem(LibraryItem item, Member member){
+    public void returnItem(LibraryItem item, Member member, LocalDate returnDate){
         if (!item.getAvailability() && member.hasBorrowed(item)){
             item.setAvailability(true);
             member.RemoveFromBorrowed(item);
-            System.out.println(member.getName() + " returned item " + item.getTitle());
-            System.out.println("-----------------------------------------------------");
+
+            Member.LoanDetails loans = member.new LoanDetails();
+            loans.removeLoan(item, returnDate);
+
+
+            if (LocalDate.now().isAfter(returnDate)){
+                System.out.println(member.getName() + " returned item " + item.getTitle() + " overdue by "  + LocalDate.now().compareTo(returnDate) + " days.");
+                System.out.println("-----------------------------------------------------");
+            } else{
+                System.out.println(member.getName() + " returned item " + item.getTitle() + " on time");
+                System.out.println("-----------------------------------------------------");
+            }
+
+            
         } else {
             System.out.println(member.getName() + " you did not borrow " + item.getTitle());
             System.out.println("-----------------------------------------------------");
