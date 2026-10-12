@@ -35,6 +35,65 @@ public class Library {
 
     }
 
+    public void getOverDueItems(){
+        for (LibraryItem item: borrowDates.keySet()){
+            if(LocalDate.now().compareTo(borrowDates.get(item)) > 0){
+                System.out.println( borrowedItems.get(item).getName() + " : " + item.getTitle() + " overdue by " + LocalDate.now().compareTo(borrowDates.get(item)) + " days.");
+            };
+        }
+    }
+
+    public Book getBookById(int ID){
+        for(Book book: books){
+            if(book.getID() == ID){
+                return book;
+            }
+        }
+        Book emptyBook = new Book(-1, null, false, null, null);
+        return emptyBook;
+    }
+
+    public Magazine getMagazineById(int ID){
+        for(Magazine magazine: magazines){
+            if(magazine.getID() == ID){
+                return magazine;
+            }
+        }
+        Magazine emptyMagazine = new Magazine(-1, null, false, ID);
+        return emptyMagazine;
+    }
+
+    public LibraryItem getItemById(int ID){
+        for(LibraryItem item: books){
+            if(item.getID() == ID){
+                return item;
+            }
+        }
+        for(LibraryItem item: magazines){
+            if(item.getID() == ID){
+                return item;
+            }
+        }
+        
+        LibraryItem emptyItem = new LibraryItem() {
+            @Override
+            public void getDescription() {
+                System.out.println();
+            }
+        };
+        return emptyItem;
+    }
+
+    public Member getMemberById(int ID){
+        for(Member member: members){
+            if (member.getID() == ID){
+                return member;
+            }
+        }
+        Member emptyMember = new Member(-1, null);
+        return emptyMember;
+    }
+
     public void registerMember(Member member){
         members.add(member);
     }
@@ -63,7 +122,7 @@ public class Library {
 
         Library.LibraryConfig config = this.new LibraryConfig(14);
         LocalDate borrowDate = LocalDate.now();
-        LocalDate dueDate = borrowDate.plusDays(config.getLoanPeriod());        
+        LocalDate dueDate = borrowDate.plusDays(config.getLoanPeriod());    
         
         item.borrow(item, member, borrowDate, dueDate);
         
