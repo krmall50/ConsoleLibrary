@@ -39,10 +39,12 @@ public class App {
                                 "Choose an option:");
         choice = sc.nextInt();
         sc.nextLine();
+        System.out.println("----------------------------------------------");
         switch (choice) {
             case 1:
                 System.out.println("Book (1) or magazine (2)?");
                 int choice2 = sc.nextInt();
+                System.out.println("----------------------------------------------");
                 sc.nextLine();
                 if (choice2 == 1){
                     Lib.getAllBooks();
@@ -55,6 +57,7 @@ public class App {
             case 2:
                 System.out.println("Book (1) or magazine (2)?");
                 int choice3 = sc.nextInt();
+                System.out.println("----------------------------------------------");
                 sc.nextLine();
                 if (choice3 == 1){
                     System.out.println("Enter title:");
@@ -71,7 +74,7 @@ public class App {
                     System.out.println("Enter the issue number: ");
                     int issueNum = sc.nextInt();
                     sc.nextLine();
-                    Magazine magazine = new Magazine((int)(Math.random()*10001), title, false, issueNum);
+                    Magazine magazine = new Magazine((int)(Math.random()*10001), title, true, issueNum);
                     Lib.addMagazine(magazine);
                 } else {
                     System.out.println("Choose right value!");
@@ -86,6 +89,7 @@ public class App {
                 break;
             case 4:
                 System.out.println("Book (1) or magazine (2)?");
+                System.out.println("----------------------------------------------");
 
                 int choice4 = sc.nextInt();
                 sc.nextLine();
@@ -121,6 +125,7 @@ public class App {
                 break;
             case 5:
                 System.out.println("Book (1) or magazine (2)?");
+                System.out.println("----------------------------------------------");
 
                 int choice5 = sc.nextInt();
                 sc.nextLine();
@@ -162,6 +167,8 @@ public class App {
                 break;
             case 8:
                 System.out.println("Book (1) or magazine (2)?");
+                System.out.println("----------------------------------------------");
+
                 int choice8 = sc.nextInt();
                 sc.nextLine();
                 if (choice8 == 1){
