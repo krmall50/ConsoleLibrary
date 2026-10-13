@@ -20,7 +20,7 @@ public abstract class LibraryItem implements Borrowable {
         }
     }
 
-    public boolean borrow(LibraryItem item, Member member, LocalDate borrowDate, LocalDate dueDate){
+    public boolean borrow(LibraryItem item, Member member, LocalDate borrowDate, LocalDate dueDate, int loanPeriod){
         if (item.getAvailability()){
             item.setAvailability(false);
             member.AddToBorrowed(item);
@@ -28,7 +28,7 @@ public abstract class LibraryItem implements Borrowable {
             Member.LoanDetails loans = member.new LoanDetails();
             loans.addLoan(item, dueDate);
 
-            System.out.println(member.getName() + " borrowed item " + item.getTitle() + " on " + borrowDate + " till: " + borrowDate.plusDays(14));
+            System.out.println(member.getName() + " borrowed item " + item.getTitle() + " on " + borrowDate + " till: " + borrowDate.plusDays(loanPeriod));
             System.out.println("-----------------------------------------------------");
             return true;
         } else {

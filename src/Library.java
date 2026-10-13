@@ -24,7 +24,7 @@ public class Library {
             this.loanPeriod = loanPeriod;
         }
 
-        public void setLoanPeroid(int loanPeriod){
+        public void setLoanPeriod(int loanPeriod){
             if (loanPeriod > 0){
                 this.loanPeriod = loanPeriod;
             }   
@@ -50,8 +50,8 @@ public class Library {
                 return book;
             }
         }
-        Book emptyBook = new Book(-1, null, false, null, null);
-        return emptyBook;
+        // Book emptyBook = new Book(-1, null, false, null, null);
+        return null;
     }
 
     public Magazine getMagazineById(int ID){
@@ -60,8 +60,8 @@ public class Library {
                 return magazine;
             }
         }
-        Magazine emptyMagazine = new Magazine(-1, null, false, ID);
-        return emptyMagazine;
+        // Magazine emptyMagazine = new Magazine(-1, null, false, ID);
+        return null;
     }
 
     public LibraryItem getItemById(int ID){
@@ -76,13 +76,7 @@ public class Library {
             }
         }
         
-        LibraryItem emptyItem = new LibraryItem() {
-            @Override
-            public void getDescription() {
-                System.out.println();
-            }
-        };
-        return emptyItem;
+        return null;
     }
 
     public Member getMemberById(int ID){
@@ -91,8 +85,8 @@ public class Library {
                 return member;
             }
         }
-        Member emptyMember = new Member(-1, null);
-        return emptyMember;
+        //Member emptyMember = new Member(-1, null);
+        return null;
     }
 
     public void registerMember(Member member){
@@ -115,18 +109,16 @@ public class Library {
         }
     }
 
-    public void borrowItem(Member member, LibraryItem item){
+    public void borrowItem(Member member, LibraryItem item, Library.LibraryConfig config){
         if(!isRegistered(member)){
             System.out.println(member.getName() + " is not registered.");
             return;
         }
 
-
-        Library.LibraryConfig config = this.new LibraryConfig(14);
         LocalDate borrowDate = LocalDate.now();
         LocalDate dueDate = borrowDate.plusDays(config.getLoanPeriod());    
         
-        if(item.borrow(item, member, borrowDate, dueDate)){
+        if(item.borrow(item, member, borrowDate, dueDate, config.getLoanPeriod())){
             borrowedItems.put(item, member);
             borrowDates.put(item, dueDate);
         }          
