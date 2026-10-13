@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class App {
     public static void start(){
-        Library Lib = new Library();
-        Library.LibraryConfig config = Lib.new LibraryConfig(14);
+        Library library = new Library();
+        Library.LibraryConfig config = library.new LibraryConfig(14);
 
         Book titanic = new Book(0, "Titanic", true, "Walter Lord", "Drama");
         Book bb = new Book(1, "Breaking Bad", true, "Vince Gilligan", "Criminal");
@@ -13,17 +13,17 @@ public class App {
         Member member1 = new Member(0, "alex");
         Member member2 = new Member(1, "jane");
 
-        Lib.addBook(dune);
-        Lib.addBook(titanic);
-        Lib.addBook(bb);
-        Lib.addBook(hobbit);
-        Lib.addMagazine(news);
-        Lib.registerMember(member1);
-        Lib.registerMember(member2);
+        library.addBook(dune);
+        library.addBook(titanic);
+        library.addBook(bb);
+        library.addBook(hobbit);
+        library.addMagazine(news);
+        library.registerMember(member1);
+        library.registerMember(member2);
 
-        Lib.borrowItem(member1, news, config);
-        Lib.borrowItem(member2, news, config);
-        Lib.getOverDueItems();
+        library.borrowItem(member1, news, config);
+        library.borrowItem(member2, news, config);
+        library.getOverDueItems();
 
         int choice = 0;
         Scanner sc = new Scanner(System.in);
@@ -43,45 +43,58 @@ public class App {
                                 "Choose an option:");
         choice = sc.nextInt();
         sc.nextLine();
+
         System.out.println("----------------------------------------------");
+
         switch (choice) {
             case 1:
                 System.out.println("Book (1) or magazine (2)?");
                 int choice2 = sc.nextInt();
-                System.out.println("----------------------------------------------");
                 sc.nextLine();
+                System.out.println("----------------------------------------------");
+
                 if (choice2 == 1){
-                    Lib.getAllBooks();
+                    library.getAllBooks();
                 } else if (choice2 == 2){
-                    Lib.getAllMagazines();
+                    library.getAllMagazines();
                 } else {
                     System.out.println("Choose right value!");
                 }
+
                 break;
             case 2:
                 System.out.println("Book (1) or magazine (2)?");
                 int choice3 = sc.nextInt();
-                System.out.println("----------------------------------------------");
+
                 sc.nextLine();
+                System.out.println("----------------------------------------------");
+
                 if (choice3 == 1){
                     System.out.println("Enter title:");
                     String title = sc.nextLine();
+
                     System.out.println("Now the Author: ");
                     String author = sc.nextLine();
+
                     System.out.println("Genre: ");
                     String genre = sc.nextLine();
-                    Book book = new Book(Utils.generateIdForLibraryItem(Lib), title, true, author, genre);
-                    Lib.addBook(book);
+
+                    Book book = new Book(Utils.generateIdForLibraryItem(library), title, true, author, genre);
+                    library.addBook(book);
+
                     System.out.println("Registered! Your books ID: " + book.getID());
                     System.out.println("----------------------------------------------");
                 } else if (choice3 == 2){
                     System.out.println("Enter title:");
                     String title = sc.nextLine();
+                    
                     System.out.println("Enter the issue number: ");
                     int issueNum = sc.nextInt();
                     sc.nextLine();
-                    Magazine magazine = new Magazine(Utils.generateIdForLibraryItem(Lib), title, true, issueNum);
-                    Lib.addMagazine(magazine);
+
+                    Magazine magazine = new Magazine(Utils.generateIdForLibraryItem(library), title, true, issueNum);
+                    library.addMagazine(magazine);
+
                     System.out.println("Registered! Your magazine's ID: " + magazine.getID());
                     System.out.println("----------------------------------------------");
                 } else {
@@ -91,8 +104,10 @@ public class App {
             case 3:
                 System.out.println("Enter member's name: ");
                 String name = sc.nextLine();
-                Member member = new Member(Utils.generateIdForMember(Lib), name);
-                Lib.registerMember(member);
+
+                Member member = new Member(Utils.generateIdForMember(library), name);
+                library.registerMember(member);
+
                 System.out.println("Registered! Your ID: " + member.getID());
                 break;
             case 4:
@@ -101,6 +116,7 @@ public class App {
 
                 int choice4 = sc.nextInt();
                 sc.nextLine();
+
                 if (choice4 == 1){
                     System.out.println("Enter books ID:");
                     int ID = sc.nextInt();
@@ -110,10 +126,10 @@ public class App {
                     int borrowerID = sc.nextInt();
                     sc.nextLine();
 
-                    Member borrower = Lib.getMemberById(borrowerID);
-                    Book book = Lib.getBookById(ID);
+                    Member borrower = library.getMemberById(borrowerID);
+                    Book book = library.getBookById(ID);
                     
-                    Lib.borrowItem(borrower, book, config);
+                    library.borrowItem(borrower, book, config);
                 } else if (choice4 == 2){
                     System.out.println("Enter magazines ID:");
                     int ID = sc.nextInt();
@@ -123,10 +139,10 @@ public class App {
                     int borrowerID = sc.nextInt();
                     sc.nextLine();
 
-                    Member borrower = Lib.getMemberById(borrowerID);
-                    Magazine magazine = Lib.getMagazineById(ID);
+                    Member borrower = library.getMemberById(borrowerID);
+                    Magazine magazine = library.getMagazineById(ID);
                     
-                    Lib.borrowItem(borrower, magazine, config);
+                    library.borrowItem(borrower, magazine, config);
                 } else {
                     System.out.println("Choose right value!");
                 }
@@ -146,10 +162,10 @@ public class App {
                     int borrowerID = sc.nextInt();
                     sc.nextLine();
 
-                    Member returner = Lib.getMemberById(borrowerID);
-                    Book book = Lib.getBookById(ID);
+                    Member returner = library.getMemberById(borrowerID);
+                    Book book = library.getBookById(ID);
                     
-                    Lib.returnItem(returner, book);
+                    library.returnItem(returner, book);
                 } else if (choice5 == 2){
                     System.out.println("Enter magazines ID:");
                     int ID = sc.nextInt();
@@ -159,19 +175,19 @@ public class App {
                     int borrowerID = sc.nextInt();
                     sc.nextLine();
 
-                    Member returner = Lib.getMemberById(borrowerID);
-                    Magazine magazine = Lib.getMagazineById(ID);
+                    Member returner = library.getMemberById(borrowerID);
+                    Magazine magazine = library.getMagazineById(ID);
                     
-                    Lib.returnItem(returner, magazine);
+                    library.returnItem(returner, magazine);
                 } else {
                     System.out.println("Choose right value!");
                 }
                 break;
             case 6:
-                Lib.getBorrowedItems();
+                library.getBorrowedItems();
                 break;
             case 7:
-                Lib.getOverDueItems();
+                library.getOverDueItems();
                 break;
             case 8:
                 System.out.println("Book (1) or magazine (2)?");
@@ -183,12 +199,14 @@ public class App {
                     System.out.println("Enter books ID:");
                     int ID = sc.nextInt();
                     sc.nextLine();
-                    Lib.getBookById(ID).getDescription();
+
+                    library.getBookById(ID).getDescription();
                 } else if (choice8 == 2){
                     System.out.println("Enter magazines ID:");
                     int ID = sc.nextInt();
                     sc.nextLine();
-                    Lib.getMagazineById(ID).getDescription();
+                    
+                    library.getMagazineById(ID).getDescription();
                 } else {
                     System.out.println("Choose right value!");
                 }

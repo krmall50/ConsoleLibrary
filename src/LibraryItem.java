@@ -20,43 +20,43 @@ public abstract class LibraryItem implements Borrowable {
         }
     }
 
-    public boolean borrow(LibraryItem item, Member member, LocalDate borrowDate, LocalDate dueDate, int loanPeriod){
-        if (item.getAvailability()){
-            item.setAvailability(false);
-            member.AddToBorrowed(item);
+    public boolean borrow(Member member, LocalDate borrowDate, LocalDate dueDate, int loanPeriod){
+        if (this.getAvailability()){
+            this.setAvailability(false);
+            member.addToBorrowed(this);
 
-            Member.LoanDetails loans = member.new LoanDetails();
-            loans.addLoan(item, dueDate);
+            //Member.LoanDetails loans = member.new LoanDetails();
+            //loans.addLoan(this, dueDate);
 
-            System.out.println(member.getName() + " borrowed item " + item.getTitle() + " on " + borrowDate + " till: " + borrowDate.plusDays(loanPeriod));
+            System.out.println(member.getName() + " borrowed item " + this.getTitle() + " on " + borrowDate + " till: " + borrowDate.plusDays(loanPeriod));
             System.out.println("-----------------------------------------------------");
             return true;
         } else {
-            System.out.println(member.getName() + " item " + item.getTitle() + " is not available");
+            System.out.println(member.getName() + " item " + this.getTitle() + " is not available");
             System.out.println("-----------------------------------------------------");
             return false;
         }
         
     }
-    public boolean returnItem(LibraryItem item, Member member, LocalDate returnDate){
-        if (!item.getAvailability() && member.hasBorrowed(item)){
-            item.setAvailability(true);
-            member.RemoveFromBorrowed(item);
+    public boolean returnItem(Member member, LocalDate dueDate){
+        if (!this.getAvailability() && member.hasBorrowed(this)){
+            this.setAvailability(true);
+            member.removeFromBorrowed(this);
 
-            Member.LoanDetails loans = member.new LoanDetails();
-            loans.removeLoan(item, returnDate);
+            //Member.LoanDetails loans = member.new LoanDetails();
+            //loans.removeLoan(this, dueDate);
 
 
-            if (LocalDate.now().isAfter(returnDate)){
-                System.out.println(member.getName() + " returned item " + item.getTitle() + " overdue by "  + LocalDate.now().compareTo(returnDate) + " days.");
+            if (LocalDate.now().isAfter(dueDate)){
+                System.out.println(member.getName() + " returned item " + this.getTitle() + " overdue by "  + LocalDate.now().compareTo(dueDate) + " days.");
                 System.out.println("-----------------------------------------------------");
             } else{
-                System.out.println(member.getName() + " returned item " + item.getTitle() + " on time");
+                System.out.println(member.getName() + " returned item " + this.getTitle() + " on time");
                 System.out.println("-----------------------------------------------------");
             }
             return true;
         } else {
-            System.out.println(member.getName() + " you did not borrow " + item.getTitle());
+            System.out.println(member.getName() + " you did not borrow " + this.getTitle());
             System.out.println("-----------------------------------------------------");
             return false;
         }        

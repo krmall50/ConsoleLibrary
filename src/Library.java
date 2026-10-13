@@ -7,14 +7,14 @@ public class Library {
     private ArrayList<Magazine> magazines;
     private ArrayList<Member> members;
     private HashMap<LibraryItem, Member> borrowedItems;
-    private HashMap<LibraryItem, LocalDate> borrowDates;
+    private HashMap<LibraryItem, LocalDate> dueDates;
 
     public Library(){
         this.books = new ArrayList<>();
         this.magazines = new ArrayList<>();
         this.members = new ArrayList<>();
         this.borrowedItems = new HashMap<>();
-        this.borrowDates = new HashMap<>();
+        this.dueDates = new HashMap<>();
     }
 
     public class LibraryConfig{
@@ -36,10 +36,10 @@ public class Library {
     }
 
     public void getOverDueItems(){
-        for (LibraryItem item: borrowDates.keySet()){
-            if(LocalDate.now().isAfter(borrowDates.get(item))){                
+        for (LibraryItem item: dueDates.keySet()){
+            if(LocalDate.now().isAfter(dueDates.get(item))){                
                 System.out.println( borrowedItems.get(item).getName() + " : " + item.getTitle()
-                 + " overdue by " + java.time.temporal.ChronoUnit.DAYS.between(LocalDate.now(), borrowDates.get(item)) + " days.");
+                 + " overdue by " + java.time.temporal.ChronoUnit.DAYS.between(LocalDate.now(), dueDates.get(item)) + " days.");
             };
         }
     }
@@ -93,7 +93,12 @@ public class Library {
         members.add(member);
     }
     public boolean isRegistered(Member member){
-        return members.contains(member);
+        for (Member m: members){
+            if (m.getID() == member.getID()){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void getBorrowedItems(){
@@ -105,7 +110,7 @@ public class Library {
         System.out.println("All borrowed Items:");
         for(LibraryItem item: borrowedItems.keySet()){
             item.getDescription();
-            System.out.println("Borrowed by: " + borrowedItems.get(item).getName() + " till " + borrowDates.get(item) + "\n");
+            System.out.println("Borrowed by: " + borrowedItems.get(item).getName() + " till " + dueDates.get(item) + "\n");
         }
     }
 
@@ -118,9 +123,9 @@ public class Library {
         LocalDate borrowDate = LocalDate.now();
         LocalDate dueDate = borrowDate.plusDays(config.getLoanPeriod());    
         
-        if(item.borrow(item, member, borrowDate, dueDate, config.getLoanPeriod())){
+        if(item.borrow(member, borrowDate, dueDate, config.getLoanPeriod())){
             borrowedItems.put(item, member);
-            borrowDates.put(item, dueDate);
+            dueDates.put(item, dueDate);
         }          
     }
 
@@ -129,9 +134,9 @@ public class Library {
             System.out.println(member.getName() + " is not registered.");
             return;
         }
-        if(item.returnItem(item, member, borrowDates.get(item))){
+        if(item.returnItem(member, dueDates.get(item))){
             borrowedItems.remove(item, member);
-            borrowDates.remove(item, borrowDates.get(item));
+            dueDates.remove(item, dueDates.get(item));
         }   
     }
 
