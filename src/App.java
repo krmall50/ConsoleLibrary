@@ -9,16 +9,19 @@ public class App {
         Book hobbit = new Book(5, "The Hobbit", true, "J.R.R. Tolkien", "Fantasy");
         Book dune = new Book(7, "Dune", true, "Frank Herbert", "Science Fiction");
         Magazine news = new Magazine(2, "nres", true, 123);
-        Member memberAdmin = new Member(0, "admin");
+        Member member1 = new Member(0, "alex");
+        Member member2 = new Member(1, "jane");
 
         Lib.addBook(dune);
         Lib.addBook(titanic);
         Lib.addBook(bb);
         Lib.addBook(hobbit);
         Lib.addMagazine(news);
-        Lib.registerMember(memberAdmin);
+        Lib.registerMember(member1);
+        Lib.registerMember(member2);
 
-        Lib.borrowItem(memberAdmin, news);
+        Lib.borrowItem(member1, news);
+        Lib.borrowItem(member2, news);
         Lib.getOverDueItems();
 
         int choice = 0;

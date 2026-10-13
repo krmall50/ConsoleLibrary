@@ -20,7 +20,7 @@ public abstract class LibraryItem implements Borrowable {
         }
     }
 
-    public void borrow(LibraryItem item, Member member, LocalDate borrowDate, LocalDate dueDate){
+    public boolean borrow(LibraryItem item, Member member, LocalDate borrowDate, LocalDate dueDate){
         if (item.getAvailability()){
             item.setAvailability(false);
             member.AddToBorrowed(item);
@@ -30,13 +30,15 @@ public abstract class LibraryItem implements Borrowable {
 
             System.out.println(member.getName() + " borrowed item " + item.getTitle() + " on " + borrowDate + " till: " + borrowDate.plusDays(14));
             System.out.println("-----------------------------------------------------");
+            return true;
         } else {
             System.out.println(member.getName() + " item " + item.getTitle() + " is not available");
             System.out.println("-----------------------------------------------------");
+            return false;
         }
         
     }
-    public void returnItem(LibraryItem item, Member member, LocalDate returnDate){
+    public boolean returnItem(LibraryItem item, Member member, LocalDate returnDate){
         if (!item.getAvailability() && member.hasBorrowed(item)){
             item.setAvailability(true);
             member.RemoveFromBorrowed(item);
@@ -52,11 +54,11 @@ public abstract class LibraryItem implements Borrowable {
                 System.out.println(member.getName() + " returned item " + item.getTitle() + " on time");
                 System.out.println("-----------------------------------------------------");
             }
-
-            
+            return true;
         } else {
             System.out.println(member.getName() + " you did not borrow " + item.getTitle());
             System.out.println("-----------------------------------------------------");
+            return false;
         }        
     }
 

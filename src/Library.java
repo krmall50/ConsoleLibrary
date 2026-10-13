@@ -37,8 +37,9 @@ public class Library {
 
     public void getOverDueItems(){
         for (LibraryItem item: borrowDates.keySet()){
-            if(LocalDate.now().compareTo(borrowDates.get(item)) > 0){
-                System.out.println( borrowedItems.get(item).getName() + " : " + item.getTitle() + " overdue by " + LocalDate.now().compareTo(borrowDates.get(item)) + " days.");
+            if(LocalDate.now().isAfter(borrowDates.get(item))){                
+                System.out.println( borrowedItems.get(item).getName() + " : " + item.getTitle()
+                 + " overdue by " + java.time.temporal.ChronoUnit.DAYS.between(LocalDate.now(), borrowDates.get(item)) + " days.");
             };
         }
     }
@@ -120,14 +121,15 @@ public class Library {
             return;
         }
 
+
         Library.LibraryConfig config = this.new LibraryConfig(14);
         LocalDate borrowDate = LocalDate.now();
         LocalDate dueDate = borrowDate.plusDays(config.getLoanPeriod());    
         
-        item.borrow(item, member, borrowDate, dueDate);
-        
-        borrowedItems.put(item, member);
-        borrowDates.put(item, dueDate);
+        if(item.borrow(item, member, borrowDate, dueDate)){
+            borrowedItems.put(item, member);
+            borrowDates.put(item, dueDate);
+        }          
     }
 
     public void returnItem(Member member, LibraryItem item){
@@ -135,9 +137,10 @@ public class Library {
             System.out.println(member.getName() + " is not registered.");
             return;
         }
-        item.returnItem(item, member, borrowDates.get(item));
-        borrowedItems.remove(item, member);
-        borrowDates.remove(item, borrowDates.get(item));
+        if(item.returnItem(item, member, borrowDates.get(item))){
+            borrowedItems.remove(item, member);
+            borrowDates.remove(item, borrowDates.get(item));
+        }   
     }
 
     public void addBook(Book book){
