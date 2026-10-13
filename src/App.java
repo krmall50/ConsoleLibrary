@@ -4,27 +4,7 @@ public class App {
     public static void start(){
         Library library = new Library();
         Library.LibraryConfig config = library.new LibraryConfig(14);
-
-        Book titanic = new Book(0, "Titanic", true, "Walter Lord", "Drama");
-        Book bb = new Book(1, "Breaking Bad", true, "Vince Gilligan", "Criminal");
-        Book hobbit = new Book(5, "The Hobbit", true, "J.R.R. Tolkien", "Fantasy");
-        Book dune = new Book(7, "Dune", true, "Frank Herbert", "Science Fiction");
-        Magazine news = new Magazine(2, "nres", true, 123);
-        Member member1 = new Member(0, "alex");
-        Member member2 = new Member(1, "jane");
-
-        library.addBook(dune);
-        library.addBook(titanic);
-        library.addBook(bb);
-        library.addBook(hobbit);
-        library.addMagazine(news);
-        library.registerMember(member1);
-        library.registerMember(member2);
-
-        library.borrowItem(member1, news, config);
-        library.borrowItem(member2, news, config);
-        library.getOverDueItems();
-
+        
         int choice = 0;
         Scanner sc = new Scanner(System.in);
 
@@ -41,12 +21,18 @@ public class App {
                                 "9. Exit\n" + //
                                 "====================================\n" + //
                                 "Choose an option:");
-        choice = sc.nextInt();
-        sc.nextLine();
+                                
+        try{
+            choice = sc.nextInt();      
+        } catch (Exception e){
+            System.out.println("Enter right Value!!");
+        }
+        sc.nextLine();            
 
         System.out.println("----------------------------------------------");
 
-        switch (choice) {
+        try {
+            switch (choice) {
             case 1:
                 System.out.println("Book (1) or magazine (2)?");
                 int choice2 = sc.nextInt();
@@ -199,14 +185,22 @@ public class App {
                     System.out.println("Enter books ID:");
                     int ID = sc.nextInt();
                     sc.nextLine();
-
-                    library.getBookById(ID).getDescription();
+                    if(library.getBookById(ID) != null){
+                        library.getBookById(ID).getDescription();
+                        break;
+                    }
+                    
+                    System.out.println("Book doesnt exist!");
                 } else if (choice8 == 2){
                     System.out.println("Enter magazines ID:");
                     int ID = sc.nextInt();
                     sc.nextLine();
-                    
-                    library.getMagazineById(ID).getDescription();
+                    if (library.getMagazineById(ID) != null){
+                        library.getMagazineById(ID).getDescription();
+                        break;
+                    }
+
+                    System.out.println("Magazine doesnt exist!");    
                 } else {
                     System.out.println("Choose right value!");
                 }
@@ -214,6 +208,10 @@ public class App {
             default:
                 break;
         }
+        } catch (Exception e) {
+            System.out.println("Enter right Value!!!");
+        }
+        
         }
         sc.close();
     }
