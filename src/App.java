@@ -23,11 +23,10 @@ public class App {
                                 "Choose an option:");
                                 
         try{
-            choice = sc.nextInt();      
+            choice = Integer.parseInt(sc.nextLine());
         } catch (Exception e){
             System.out.println("Enter right Value!!");
         }
-        sc.nextLine();            
 
         System.out.println("----------------------------------------------");
 
@@ -35,8 +34,7 @@ public class App {
             switch (choice) {
             case 1:
                 System.out.println("Book (1) or magazine (2)?");
-                int choice2 = sc.nextInt();
-                sc.nextLine();
+                int choice2 = Integer.parseInt(sc.nextLine());
                 System.out.println("----------------------------------------------");
 
                 if (choice2 == 1){
@@ -50,9 +48,7 @@ public class App {
                 break;
             case 2:
                 System.out.println("Book (1) or magazine (2)?");
-                int choice3 = sc.nextInt();
-
-                sc.nextLine();
+                int choice3 = Integer.parseInt(sc.nextLine());
                 System.out.println("----------------------------------------------");
 
                 if (choice3 == 1){
@@ -75,8 +71,7 @@ public class App {
                     String title = sc.nextLine();
                     
                     System.out.println("Enter the issue number: ");
-                    int issueNum = sc.nextInt();
-                    sc.nextLine();
+                    int issueNum = Integer.parseInt(sc.nextLine());
 
                     Magazine magazine = new Magazine(Utils.generateIdForLibraryItem(library), title, true, issueNum);
                     library.addMagazine(magazine);
@@ -100,17 +95,14 @@ public class App {
                 System.out.println("Book (1) or magazine (2)?");
                 System.out.println("----------------------------------------------");
 
-                int choice4 = sc.nextInt();
-                sc.nextLine();
+                int choice4 = Integer.parseInt(sc.nextLine());
 
                 if (choice4 == 1){
                     System.out.println("Enter books ID:");
-                    int ID = sc.nextInt();
-                    sc.nextLine();
+                    int ID = Integer.parseInt(sc.nextLine());
 
                     System.out.println("Enter member's ID: ");
-                    int borrowerID = sc.nextInt();
-                    sc.nextLine();
+                    int borrowerID = Integer.parseInt(sc.nextLine());
 
                     Member borrower = library.getMemberById(borrowerID);
                     Book book = library.getBookById(ID);
@@ -118,12 +110,10 @@ public class App {
                     library.borrowItem(borrower, book, config);
                 } else if (choice4 == 2){
                     System.out.println("Enter magazines ID:");
-                    int ID = sc.nextInt();
-                    sc.nextLine();
+                    int ID = Integer.parseInt(sc.nextLine());
 
                     System.out.println("Enter member's ID: ");
-                    int borrowerID = sc.nextInt();
-                    sc.nextLine();
+                    int borrowerID = Integer.parseInt(sc.nextLine());
 
                     Member borrower = library.getMemberById(borrowerID);
                     Magazine magazine = library.getMagazineById(ID);
@@ -137,16 +127,13 @@ public class App {
                 System.out.println("Book (1) or magazine (2)?");
                 System.out.println("----------------------------------------------");
 
-                int choice5 = sc.nextInt();
-                sc.nextLine();
+                int choice5 = Integer.parseInt(sc.nextLine());
                 if (choice5 == 1){
                     System.out.println("Enter books ID:");
-                    int ID = sc.nextInt();
-                    sc.nextLine();
+                    int ID = Integer.parseInt(sc.nextLine());
 
                     System.out.println("Enter member's ID: ");
-                    int borrowerID = sc.nextInt();
-                    sc.nextLine();
+                    int borrowerID = Integer.parseInt(sc.nextLine());
 
                     Member returner = library.getMemberById(borrowerID);
                     Book book = library.getBookById(ID);
@@ -154,11 +141,10 @@ public class App {
                     library.returnItem(returner, book);
                 } else if (choice5 == 2){
                     System.out.println("Enter magazines ID:");
-                    int ID = sc.nextInt();
-                    sc.nextLine();
+                    int ID = Integer.parseInt(sc.nextLine());
 
                     System.out.println("Enter member's ID: ");
-                    int borrowerID = sc.nextInt();
+                    int borrowerID = Integer.parseInt(sc.nextLine());
                     sc.nextLine();
 
                     Member returner = library.getMemberById(borrowerID);
@@ -179,12 +165,12 @@ public class App {
                 System.out.println("Book (1) or magazine (2)?");
                 System.out.println("----------------------------------------------");
 
-                int choice8 = sc.nextInt();
+                int choice8 = Integer.parseInt(sc.nextLine());
                 sc.nextLine();
                 if (choice8 == 1){
                     System.out.println("Enter books ID:");
-                    int ID = sc.nextInt();
-                    sc.nextLine();
+                    int ID = Integer.parseInt(sc.nextLine());
+
                     if(library.getBookById(ID) != null){
                         library.getBookById(ID).getDescription();
                         break;
@@ -193,7 +179,8 @@ public class App {
                     System.out.println("Book doesnt exist!");
                 } else if (choice8 == 2){
                     System.out.println("Enter magazines ID:");
-                    int ID = sc.nextInt();
+                    int ID = Integer.parseInt(sc.nextLine());
+                    
                     sc.nextLine();
                     if (library.getMagazineById(ID) != null){
                         library.getMagazineById(ID).getDescription();

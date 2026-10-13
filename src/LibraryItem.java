@@ -25,9 +25,6 @@ public abstract class LibraryItem implements Borrowable {
             this.setAvailability(false);
             member.addToBorrowed(this);
 
-            //Member.LoanDetails loans = member.new LoanDetails();
-            //loans.addLoan(this, dueDate);
-
             System.out.println(member.getName() + " borrowed item " + this.getTitle() + " on " + borrowDate + " till: " + borrowDate.plusDays(loanPeriod));
             System.out.println("-----------------------------------------------------");
             return true;
@@ -43,12 +40,8 @@ public abstract class LibraryItem implements Borrowable {
             this.setAvailability(true);
             member.removeFromBorrowed(this);
 
-            //Member.LoanDetails loans = member.new LoanDetails();
-            //loans.removeLoan(this, dueDate);
-
-
             if (LocalDate.now().isAfter(dueDate)){
-                System.out.println(member.getName() + " returned item " + this.getTitle() + " overdue by "  + LocalDate.now().compareTo(dueDate) + " days.");
+                System.out.println(member.getName() + " returned item " + this.getTitle() + " overdue by "  + java.time.temporal.ChronoUnit.DAYS.between(dueDate, LocalDate.now()) + " days.");
                 System.out.println("-----------------------------------------------------");
             } else{
                 System.out.println(member.getName() + " returned item " + this.getTitle() + " on time");

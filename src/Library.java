@@ -39,7 +39,7 @@ public class Library {
         for (LibraryItem item: dueDates.keySet()){
             if(LocalDate.now().isAfter(dueDates.get(item))){                
                 System.out.println( borrowedItems.get(item).getName() + " : " + item.getTitle()
-                 + " overdue by " + java.time.temporal.ChronoUnit.DAYS.between(LocalDate.now(), dueDates.get(item)) + " days.");
+                 + " overdue by " + java.time.temporal.ChronoUnit.DAYS.between(dueDates.get(item), LocalDate.now()) + " days.");
             };
         }
     }
@@ -50,7 +50,6 @@ public class Library {
                 return book;
             }
         }
-        // Book emptyBook = new Book(-1, null, false, null, null);
         return null;
     }
 
@@ -60,7 +59,6 @@ public class Library {
                 return magazine;
             }
         }
-        // Magazine emptyMagazine = new Magazine(-1, null, false, ID);
         return null;
     }
 
@@ -85,7 +83,6 @@ public class Library {
                 return member;
             }
         }
-        //Member emptyMember = new Member(-1, null);
         return null;
     }
 
