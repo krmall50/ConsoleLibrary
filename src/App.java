@@ -25,7 +25,7 @@ public class App {
         try{
             choice = Integer.parseInt(sc.nextLine());
         } catch (Exception e){
-            System.out.println("Enter right Value!!");
+            System.out.println("Please, choose right option, 1 to 9.");
         }
 
         System.out.println("----------------------------------------------");
@@ -33,29 +33,27 @@ public class App {
         try {
             switch (choice) {
             case 1:
-                System.out.println("Book (1) or magazine (2)?");
-                int choice2 = Integer.parseInt(sc.nextLine());
+                System.out.println("Please enter 1 for books, or 2 for magazines.");
+                int choice2 = Utils.readIntChoice(sc);
                 System.out.println("----------------------------------------------");
 
                 if (choice2 == 1){
                     library.getAllBooks();
                 } else if (choice2 == 2){
                     library.getAllMagazines();
-                } else {
-                    System.out.println("Choose right value!");
                 }
 
                 break;
             case 2:
-                System.out.println("Book (1) or magazine (2)?");
-                int choice3 = Integer.parseInt(sc.nextLine());
+                System.out.println("Please enter 1 for books, or 2 for magazines.");
+                int choice3 = Utils.readIntChoice(sc);
                 System.out.println("----------------------------------------------");
 
                 if (choice3 == 1){
-                    System.out.println("Enter title:");
+                    System.out.println("Please enter the title: ");
                     String title = sc.nextLine();
 
-                    System.out.println("Now the Author: ");
+                    System.out.println("Please enter the author: ");
                     String author = sc.nextLine();
 
                     System.out.println("Genre: ");
@@ -67,23 +65,21 @@ public class App {
                     System.out.println("Registered! Your books ID: " + book.getID());
                     System.out.println("----------------------------------------------");
                 } else if (choice3 == 2){
-                    System.out.println("Enter title:");
+                    System.out.println("Please enter the title: ");
                     String title = sc.nextLine();
                     
-                    System.out.println("Enter the issue number: ");
-                    int issueNum = Integer.parseInt(sc.nextLine());
+                    System.out.println("Please enter the issue number: ");
+                    int issueNum = Utils.readInt(sc);
 
                     Magazine magazine = new Magazine(Utils.generateIdForLibraryItem(library), title, true, issueNum);
                     library.addMagazine(magazine);
 
                     System.out.println("Registered! Your magazine's ID: " + magazine.getID());
                     System.out.println("----------------------------------------------");
-                } else {
-                    System.out.println("Choose right value!");
                 }
                 break;
             case 3:
-                System.out.println("Enter member's name: ");
+                System.out.println("Please enter member's name: ");
                 String name = sc.nextLine();
 
                 Member member = new Member(Utils.generateIdForMember(library), name);
@@ -92,67 +88,62 @@ public class App {
                 System.out.println("Registered! Your ID: " + member.getID());
                 break;
             case 4:
-                System.out.println("Book (1) or magazine (2)?");
+                System.out.println("Please enter 1 for books, or 2 for magazines.");
                 System.out.println("----------------------------------------------");
 
-                int choice4 = Integer.parseInt(sc.nextLine());
+                int choice4 = Utils.readIntChoice(sc);
 
                 if (choice4 == 1){
-                    System.out.println("Enter books ID:");
-                    int ID = Integer.parseInt(sc.nextLine());
+                    System.out.println("Please enter the book's ID: ");
+                    int ID = Utils.readInt(sc);
 
-                    System.out.println("Enter member's ID: ");
-                    int borrowerID = Integer.parseInt(sc.nextLine());
+                    System.out.println("Please enter the member's ID: ");
+                    int borrowerID = Utils.readInt(sc);
 
                     Member borrower = library.getMemberById(borrowerID);
                     Book book = library.getBookById(ID);
                     
                     library.borrowItem(borrower, book, config);
                 } else if (choice4 == 2){
-                    System.out.println("Enter magazines ID:");
-                    int ID = Integer.parseInt(sc.nextLine());
+                    System.out.println("Please enter the magazine's ID: ");
+                    int ID = Utils.readInt(sc);
 
-                    System.out.println("Enter member's ID: ");
-                    int borrowerID = Integer.parseInt(sc.nextLine());
+                    System.out.println("Please enter the member's ID: ");
+                    int borrowerID = Utils.readInt(sc);
 
                     Member borrower = library.getMemberById(borrowerID);
                     Magazine magazine = library.getMagazineById(ID);
                     
                     library.borrowItem(borrower, magazine, config);
-                } else {
-                    System.out.println("Choose right value!");
                 }
                 break;
             case 5:
-                System.out.println("Book (1) or magazine (2)?");
+                System.out.println("Please enter 1 for books, or 2 for magazines.");
                 System.out.println("----------------------------------------------");
 
-                int choice5 = Integer.parseInt(sc.nextLine());
+                int choice5 = Utils.readIntChoice(sc);
                 if (choice5 == 1){
-                    System.out.println("Enter books ID:");
-                    int ID = Integer.parseInt(sc.nextLine());
+                    System.out.println("Please enter the book's ID: ");
+                    int ID = Utils.readInt(sc);
 
-                    System.out.println("Enter member's ID: ");
-                    int borrowerID = Integer.parseInt(sc.nextLine());
+                    System.out.println("Please enter the member's ID: ");
+                    int borrowerID = Utils.readInt(sc);
 
                     Member returner = library.getMemberById(borrowerID);
                     Book book = library.getBookById(ID);
                     
                     library.returnItem(returner, book);
                 } else if (choice5 == 2){
-                    System.out.println("Enter magazines ID:");
-                    int ID = Integer.parseInt(sc.nextLine());
+                    System.out.println("Please enter the magazine's ID: ");
+                    int ID = Utils.readInt(sc);
 
-                    System.out.println("Enter member's ID: ");
-                    int borrowerID = Integer.parseInt(sc.nextLine());
-                    sc.nextLine();
+                    System.out.println("Please enter the member's ID: ");
+                    int borrowerID = Utils.readInt(sc);
 
                     Member returner = library.getMemberById(borrowerID);
                     Magazine magazine = library.getMagazineById(ID);
                     
                     library.returnItem(returner, magazine);
-                } else {
-                    System.out.println("Choose right value!");
                 }
                 break;
             case 6:
@@ -162,41 +153,37 @@ public class App {
                 library.getOverDueItems();
                 break;
             case 8:
-                System.out.println("Book (1) or magazine (2)?");
+                System.out.println("Please enter 1 for books, or 2 for magazines.");
                 System.out.println("----------------------------------------------");
 
-                int choice8 = Integer.parseInt(sc.nextLine());
-                sc.nextLine();
+                int choice8 = Utils.readIntChoice(sc);
                 if (choice8 == 1){
-                    System.out.println("Enter books ID:");
-                    int ID = Integer.parseInt(sc.nextLine());
+                    System.out.println("Please enter the book's ID: ");
+                    int ID = Utils.readInt(sc);
 
                     if(library.getBookById(ID) != null){
                         library.getBookById(ID).getDescription();
                         break;
                     }
                     
-                    System.out.println("Book doesnt exist!");
+                    System.out.println("Book with that ID does not registered in this Library.");
                 } else if (choice8 == 2){
-                    System.out.println("Enter magazines ID:");
-                    int ID = Integer.parseInt(sc.nextLine());
+                    System.out.println("Please enter the magazine's ID: ");
+                    int ID = Utils.readInt(sc);
                     
-                    sc.nextLine();
                     if (library.getMagazineById(ID) != null){
                         library.getMagazineById(ID).getDescription();
                         break;
                     }
 
-                    System.out.println("Magazine doesnt exist!");    
-                } else {
-                    System.out.println("Choose right value!");
+                    System.out.println("Magazine with that ID does not registered in this Library.");    
                 }
                 break;
             default:
                 break;
         }
         } catch (Exception e) {
-            System.out.println("Enter right Value!!!");
+            System.out.println("Invalid input.");
         }
         
         }

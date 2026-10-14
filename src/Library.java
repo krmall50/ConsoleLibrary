@@ -36,6 +36,11 @@ public class Library {
     }
 
     public void getOverDueItems(){
+        if (dueDates.size() == 0){
+            System.out.println("No overdue items.");
+            return;
+        }
+        System.out.println("Overdue Items: ");
         for (LibraryItem item: dueDates.keySet()){
             if(LocalDate.now().isAfter(dueDates.get(item))){                
                 System.out.println( borrowedItems.get(item).getName() + " : " + item.getTitle()
@@ -90,12 +95,20 @@ public class Library {
         members.add(member);
     }
     public boolean isRegistered(Member member){
-        for (Member m: members){
+        if (member != null){
+            for (Member m: members){
             if (m.getID() == member.getID()){
                 return true;
             }
         }
+        }    
         return false;
+    }
+    public boolean itemExists(LibraryItem item){
+        if(getItemById(item.getID()) == null || item == null){
+            return false;
+        }
+        return true;
     }
 
     public void getBorrowedItems(){
@@ -116,7 +129,6 @@ public class Library {
             System.out.println(member.getName() + " is not registered.");
             return;
         }
-
         LocalDate borrowDate = LocalDate.now();
         LocalDate dueDate = borrowDate.plusDays(config.getLoanPeriod());    
         
@@ -131,6 +143,10 @@ public class Library {
             System.out.println(member.getName() + " is not registered.");
             return;
         }
+        if (!itemExists(item)){
+            System.out.println("Item is not registered.");
+            return;
+        }
         if(item.returnItem(member, dueDates.get(item))){
             borrowedItems.remove(item, member);
             dueDates.remove(item, dueDates.get(item));
@@ -142,6 +158,10 @@ public class Library {
     }
 
     public void getAllBooks(){
+        if (books.size() == 0){
+            System.out.println("No Books.");
+            return;
+        }
         System.out.println("All books: ");
         for(Book book: books){
             book.getDescription();
@@ -155,6 +175,11 @@ public class Library {
     }
 
     public void getAllMagazines(){
+        if (magazines.size() == 0){
+            System.out.println("No magazines.");
+            return;
+        }
+
         System.out.println("All magazines: ");
         for(Magazine magazine: magazines){
             magazine.getDescription();
