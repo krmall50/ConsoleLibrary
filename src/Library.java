@@ -40,7 +40,7 @@ public class Library {
             System.out.println("No overdue items.");
             return;
         }
-        System.out.println("Overdue Items: ");
+        
         for (LibraryItem item: dueDates.keySet()){
             if(LocalDate.now().isAfter(dueDates.get(item))){                
                 System.out.println( borrowedItems.get(item).getName() + " : " + item.getTitle()
@@ -105,10 +105,12 @@ public class Library {
         return false;
     }
     public boolean itemExists(LibraryItem item){
-        if(getItemById(item.getID()) == null || item == null){
-            return false;
+        if (item != null){
+            if(getItemById(item.getID()) != null){
+            return true;
+            }
         }
-        return true;
+        return false;
     }
 
     public void getBorrowedItems(){
@@ -125,8 +127,16 @@ public class Library {
     }
 
     public void borrowItem(Member member, LibraryItem item, Library.LibraryConfig config){
+        if (member == null){
+            System.out.println("Member not found");
+            return;
+        }
         if(!isRegistered(member)){
-            System.out.println(member.getName() + " is not registered.");
+            System.out.println("Member is not registered.");
+            return;
+        }
+        if (!itemExists(item)){
+            System.out.println("Item is not registered.");
             return;
         }
         LocalDate borrowDate = LocalDate.now();
@@ -139,8 +149,12 @@ public class Library {
     }
 
     public void returnItem(Member member, LibraryItem item){
+        if (member == null){
+            System.out.println("Member not found");
+            return;
+        }
         if(!isRegistered(member)){
-            System.out.println(member.getName() + " is not registered.");
+            System.out.println("Member is not registered.");
             return;
         }
         if (!itemExists(item)){

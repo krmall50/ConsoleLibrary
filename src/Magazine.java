@@ -20,6 +20,6 @@ public class Magazine extends LibraryItem {
         System.out.println("Title: " + getTitle());
         System.out.println("Available: " + getAvailability());
         System.out.println("Issue Number: " + getIssueNum());
-        System.err.println();
+        System.out.println();
     }
 }

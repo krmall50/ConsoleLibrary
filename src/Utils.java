@@ -31,7 +31,7 @@ public class Utils {
                     System.out.println("Please, choose right option, 1 or 2.");
                 }
             }
-        } catch (Exception NumberFormatException) {      
+        } catch (NumberFormatException NumberFormatException) {      
             if (NumberFormatException.getMessage() == "No line found") {
                 return -1;
             }    
@@ -39,14 +39,14 @@ public class Utils {
             num = readIntChoice(sc);
         } 
         return num;
-}
+    }
     public static int readInt(Scanner sc){
         int num = 0;
         try {           
             num = Integer.parseInt(sc.nextLine());
 
-        } catch (Exception NumberFormatException) {      
-            if (NumberFormatException.getMessage() == "No line found") {
+        } catch (NumberFormatException NumberFormatException) {      
+            if (NumberFormatException.getMessage().equals("No line found")) {
                 return -1;
             }    
             System.out.println("Please enter valid number.");
